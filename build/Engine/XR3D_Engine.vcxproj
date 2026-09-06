@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{25AF48F7-4B05-3FDF-B6F8-6E786C7B713A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>XR3D_Engine</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\XR3D_Engine\build\Engine\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">XR3D_Engine.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">XR3D_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\XR3D_Engine\build\Engine\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">XR3D_Engine.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">XR3D_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\XR3D_Engine\build\Engine\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">XR3D_Engine.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">XR3D_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\XR3D_Engine\build\Engine\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">XR3D_Engine.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">XR3D_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/XR3D_Engine/build/Engine/Debug/XR3D_Engine.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/XR3D_Engine/build/Engine/Debug/XR3D_Engine.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/XR3D_Engine/build/Engine/Release/XR3D_Engine.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/XR3D_Engine/build/Engine/Release/XR3D_Engine.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/XR3D_Engine/build/Engine/MinSizeRel/XR3D_Engine.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/XR3D_Engine/build/Engine/MinSizeRel/XR3D_Engine.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\XR3D_Engine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/XR3D_Engine/build/Engine/RelWithDebInfo/XR3D_Engine.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/XR3D_Engine/build/Engine/RelWithDebInfo/XR3D_Engine.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\XR3D_Engine\Engine\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/XR3D_Engine/Engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/XR3D_Engine -BD:/XR3D_Engine/build --check-stamp-file D:/XR3D_Engine/build/Engine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\XR3D_Engine\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\XR3D_Engine\build\Engine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/XR3D_Engine/Engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/XR3D_Engine -BD:/XR3D_Engine/build --check-stamp-file D:/XR3D_Engine/build/Engine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\XR3D_Engine\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\XR3D_Engine\build\Engine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/XR3D_Engine/Engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/XR3D_Engine -BD:/XR3D_Engine/build --check-stamp-file D:/XR3D_Engine/build/Engine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\XR3D_Engine\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\XR3D_Engine\build\Engine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/XR3D_Engine/Engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:/XR3D_Engine -BD:/XR3D_Engine/build --check-stamp-file D:/XR3D_Engine/build/Engine/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\XR3D_Engine\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\XR3D_Engine\build\Engine\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\XR3D_Engine\Engine\AI\AIDatasetLoader.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\AI\AIInference.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\AI\AIManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\AI\AINodeGraph.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Assets\AssetsExporter.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Assets\AssetsImporter.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Assets\AssetsLODGenerator.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Assets\AssetsManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Audio\AudioEffect.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Audio\AudioImporter.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Audio\AudioManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Audio\AudioMixer.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Config\ConfigLoader.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Config\ConfigManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Config\ConfigRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\CoreManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Diagnostics\DiagnosticsAssert.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Diagnostics\DiagnosticsCrashHandler.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Diagnostics\DiagnosticsManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Events\EventDispatcher.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Events\EventManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Events\EventQueue.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Events\EventRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemPath.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemWatcher.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\JobSystem\JobManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\JobSystem\JobQueue.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\JobSystem\JobScheduler.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Logging\LogFormatter.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Logging\LogRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Logging\LogSink.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Logging\Logger.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryAllocator.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryPool.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryTracker.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectHandle.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectLifetime.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\PluginSystem\PluginSystemLoader.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\PluginSystem\PluginSystemManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\PluginSystem\PluginSystemRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Reflection\ReflectionDescriptor.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Reflection\ReflectionManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Reflection\ReflectionRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceHandle.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceLoader.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationStreamBinary.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationStreamJson.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Services\ServicesManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Services\ServicesTable.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Threading\ThreadManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Threading\ThreadPool.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Time\TimeClock.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Time\TimeHandle.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Time\TimeManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Time\TimeRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Core\Time\TimeTimer.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Extras\ExtrasManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Input\Core\InputManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Input\Gamepad\InputGamepad.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Input\Keyboard\InputKeyboard.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Input\Mapping\InputMapping.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Input\Mouse\InputMouse.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Input\Touch\InputTouch.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Input\XR\InputXR.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Media\MediaEncoder.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Media\MediaImporter.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Media\MediaManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Media\MediaPlayer.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Networking\NetworkingManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Networking\NetworkingSession.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Networking\NetworkingSync.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Networking\NetworkingVoice.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Physics\PhysicsCollision.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Physics\PhysicsJoint.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Physics\PhysicsManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Physics\PhysicsRigid.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Core\PlatformCapabilities.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Core\PlatformManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Dialog\LinuxDialog.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Display\LinuxDisplay.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Environment\LinuxEnvironment.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Event\LinuxEvent.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\FileSystem\LinuxFileSystem.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Input\LinuxInput.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Library\LinuxLibrary.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Monitor\LinuxMonitor.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Process\LinuxProcess.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Security\LinuxSecurity.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Shell\LinuxShell.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Linux\Window\LinuxWindow.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Dialog\WindowsDialog.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Display\WindowsDisplay.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Environment\WindowsEnvironment.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Event\WindowsEvent.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\FileSystem\WindowsFileSystem.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Input\WindowsInput.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Library\WindowsLibrary.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Monitor\WindowsMonitor.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Process\WindowsProcess.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Registry\WindowsRegistry.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Security\WindowsSecurity.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Shell\WindowsShell.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\Windows\Window\WindowsWindow.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Dialog\MacOSDialog.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Display\MacOSDisplay.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Environment\MacOSEnvironment.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Event\MacOSEvent.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\FileSystem\MacOSFileSystem.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Input\MacOSInput.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Library\MacOSLibrary.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Monitor\MacOSMonitor.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Process\MacOSProcess.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Security\MacOSSecurity.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Shell\MacOSShell.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Platform\macOS\Window\MacOSWindow.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Plugins\PluginsHotReload.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Plugins\PluginsManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Plugins\PluginsSandbox.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Core\RenderingManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Debug\RenderingDebug.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Frame\RenderingFrame.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Pass\RenderingPass.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Pipeline\RenderingPipeline.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Resources\RenderingResourceBinding.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Shaders\RenderingShaders.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Command\VulkanCommand.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Descriptors\VulkanDescriptors.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Device\VulkanDevice.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Instance\VulkanInstance.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Memory\VulkanMemory.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Resources\VulkanResources.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Surface\VulkanSurface.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Swapchain\VulkanSwapchain.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Synchronization\VulkanSynchronization.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Scripting\ScriptingBridge.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Scripting\ScriptingConsole.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Scripting\ScriptingHotReload.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Scripting\ScriptingManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Simulation\SimulationCloth.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Simulation\SimulationFluid.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Simulation\SimulationManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Simulation\SimulationParticle.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\UI\Core\UIManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\UI\Input\UIInput.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\UI\Layout\UILayout.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\UI\Qt\UIQtBridge.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\UI\Resources\UIResources.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\UI\Theme\UITheme.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\UI\Widgets\UIWidget.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesConverter.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesDebugTool.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesProfiler.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Window\Core\WindowManager.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Window\Cursor\WindowCursor.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Window\Display\WindowDisplay.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Window\Events\WindowEventDispatcher.cpp" />
+    <ClCompile Include="D:\XR3D_Engine\Engine\Window\Platform\WindowPlatformBridge.cpp" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\AI\AIDatasetLoader.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\AI\AIInference.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\AI\AIManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\AI\AINodeGraph.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\AI\AITypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Assets\AssetsExporter.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Assets\AssetsImporter.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Assets\AssetsLODGenerator.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Assets\AssetsManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Assets\AssetsTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Audio\AudioEffect.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Audio\AudioImporter.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Audio\AudioManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Audio\AudioMixer.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Audio\AudioTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Config\ConfigLoader.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Config\ConfigManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Config\ConfigRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Config\ConfigTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\CoreManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Diagnostics\DiagnosticsAssert.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Diagnostics\DiagnosticsCrashHandler.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Diagnostics\DiagnosticsManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Diagnostics\DiagnosticsTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Events\EventDispatcher.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Events\EventManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Events\EventQueue.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Events\EventRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Events\EventTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemPath.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\FileSystem\FileSystemWatcher.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\JobSystem\JobManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\JobSystem\JobQueue.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\JobSystem\JobScheduler.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\JobSystem\JobTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Logging\LogFormatter.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Logging\LogRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Logging\LogSink.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Logging\LogTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Logging\Logger.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryAllocator.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryPool.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryTracker.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Memory\MemoryTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectHandle.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectLifetime.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\ObjectSystem\ObjectTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\PluginSystem\PluginSystemLoader.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\PluginSystem\PluginSystemManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\PluginSystem\PluginSystemRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\PluginSystem\PluginSystemTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Reflection\ReflectionDescriptor.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Reflection\ReflectionManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Reflection\ReflectionRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Reflection\ReflectionTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceHandle.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceLoader.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Resource\ResourceTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationStreamBinary.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationStreamJson.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Serialization\SerializationTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Services\ServicesManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Services\ServicesTable.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Services\ServicesTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Threading\ThreadManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Threading\ThreadPool.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Threading\ThreadTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Time\TimeClock.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Time\TimeHandle.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Time\TimeManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Time\TimeRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Time\TimeTimer.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Core\Time\TimeTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Extras\ExtrasManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Extras\ExtrasTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\Core\InputManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\Core\InputTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\Gamepad\InputGamepad.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\Keyboard\InputKeyboard.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\Mapping\InputMapping.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\Mouse\InputMouse.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\Touch\InputTouch.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Input\XR\InputXR.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Media\MediaEncoder.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Media\MediaImporter.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Media\MediaManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Media\MediaPlayer.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Media\MediaTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Networking\NetworkingManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Networking\NetworkingSession.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Networking\NetworkingSync.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Networking\NetworkingTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Networking\NetworkingVoice.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Physics\PhysicsCollision.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Physics\PhysicsJoint.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Physics\PhysicsManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Physics\PhysicsRigid.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Physics\PhysicsTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Core\PlatformCapabilities.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Core\PlatformInterface.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Core\PlatformManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Core\PlatformTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Dialog\LinuxDialog.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Display\LinuxDisplay.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Environment\LinuxEnvironment.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Event\LinuxEvent.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\FileSystem\LinuxFileSystem.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Input\LinuxInput.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Library\LinuxLibrary.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Monitor\LinuxMonitor.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Process\LinuxProcess.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Security\LinuxSecurity.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Shell\LinuxShell.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Linux\Window\LinuxWindow.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Dialog\WindowsDialog.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Display\WindowsDisplay.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Environment\WindowsEnvironment.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Event\WindowsEvent.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\FileSystem\WindowsFileSystem.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Input\WindowsInput.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Library\WindowsLibrary.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Monitor\WindowsMonitor.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Process\WindowsProcess.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Registry\WindowsRegistry.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Security\WindowsSecurity.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Shell\WindowsShell.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\Windows\Window\WindowsWindow.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Dialog\MacOSDialog.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Display\MacOSDisplay.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Environment\MacOSEnvironment.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Event\MacOSEvent.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\FileSystem\MacOSFileSystem.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Input\MacOSInput.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Library\MacOSLibrary.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Monitor\MacOSMonitor.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Process\MacOSProcess.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Security\MacOSSecurity.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Shell\MacOSShell.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Platform\macOS\Window\MacOSWindow.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Plugins\PluginsHotReload.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Plugins\PluginsManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Plugins\PluginsSandbox.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Plugins\PluginsTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Core\RenderingManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Core\RenderingTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Debug\RenderingDebug.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Frame\RenderingFrame.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Pass\RenderingPass.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Pipeline\RenderingPipeline.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Resources\RenderingResourceBinding.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Shaders\RenderingShaders.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Command\VulkanCommand.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Descriptors\VulkanDescriptors.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Device\VulkanDevice.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Instance\VulkanInstance.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Memory\VulkanMemory.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Resources\VulkanResources.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Surface\VulkanSurface.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Swapchain\VulkanSwapchain.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Rendering\Vulkan\Synchronization\VulkanSynchronization.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Scripting\ScriptingBridge.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Scripting\ScriptingConsole.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Scripting\ScriptingHotReload.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Scripting\ScriptingManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Scripting\ScriptingTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Simulation\SimulationCloth.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Simulation\SimulationFluid.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Simulation\SimulationManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Simulation\SimulationParticle.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Simulation\SimulationTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Core\UIManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Core\UITypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Events\UIEvent.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Input\UIInput.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Layout\UILayout.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Qt\UIQtBridge.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Resources\UIResources.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Theme\UITheme.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\UI\Widgets\UIWidget.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesConverter.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesDebugTool.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesProfiler.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Utilities\UtilitiesTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Core\WindowManager.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Core\WindowTypes.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Cursor\WindowCursor.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Display\WindowDisplay.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Events\WindowEvent.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Events\WindowEventDispatcher.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Platform\WindowPlatformBridge.h" />
+    <ClInclude Include="D:\XR3D_Engine\Engine\Window\Properties\WindowProperties.h" />
+    <ClCompile Include="D:\XR3D_Engine\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="D:\XR3D_Engine\build\ZERO_CHECK.vcxproj">
+      <Project>{52CE2503-647D-3C02-A41E-9253F865CA33}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
