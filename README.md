@@ -1386,16 +1386,343 @@ git tag -a v0.4.0-config -m "Core Config module complete: 8 unit tests, 3 integr
 
 <br>
 
-# आगे क्या (अगला टैग)
+<br>
 
-अगला मॉड्यूल **`Core\Time`** होगा (Core की 15 प्रणालियों में चौथा),
-जो इंजन की घड़ी (clock), फ़्रेम डेल्टा-टाइम, और टाइमर की ज़िम्मेदारी
-संभालेगा — यह Main Loop और भविष्य में Physics/Animation जैसी हर
-प्रणाली के लिए बुनियादी ज़रूरत है। जैसे ही वह पूरा होगा, इस दस्तावेज़
-में **टैग 5 — `v0.5.0-time`** का पूरा विवरण, इसी विस्तृत शैली में,
-यहीं नीचे जोड़ दिया जाएगा।
+# टैग 5 — `v0.5.0-time` (Core / Time मॉड्यूल)
+
+## सारांश तालिका
+
+| क्षेत्र | विवरण |
+|---|---|
+| टैग नाम | `v0.5.0-time` |
+| संदेश | "Core Time module complete: 10 unit tests, 3 integration tests, wired into Engine" |
+| मॉड्यूल समूह | Core |
+| संस्करण चरण | V1 |
+| Core में क्रम | 15 में से चौथी प्रणाली |
+| यूनिट टेस्ट | 10/10 पास |
+| इंटीग्रेशन टेस्ट | 3/3 पास |
+
+## यह मॉड्यूल क्यों चौथे नंबर पर बनाया गया
+
+Time लगभग **हर भविष्य की प्रणाली** के लिए बुनियादी ज़रूरत है — Physics
+को fixed-timestep चाहिए (deterministic simulation के लिए), Animation
+को समय के साथ blending चाहिए, Rendering को frame-pacing चाहिए,
+Networking को interpolation/timeout चाहिए, और gameplay logic को
+cooldowns/buffs जैसी चीज़ें चाहिए। इसीलिए Memory, Logging, Config के
+तुरंत बाद Time बनाना ज़रूरी था — और इसे **पूरी तरह एक साथ** (time-scale,
+pause, fixed-step, safe timers — सब एक ही बार में) बनाना इसलिए ज़रूरी
+था ताकि आगे चलकर इन फ़ीचर्स को Physics जैसी प्रणालियों में **बाद में
+जबरदस्ती जोड़ना (retrofit)** न पड़े, जो कहीं ज़्यादा जोखिम भरा
+(risky) होता।
+
+## आर्किटेक्चर — पूरा चित्रण
+
+```
+                    TimeManager  (singleton — एकमात्र बाहरी संपर्क बिंदु)
+                          |
+              ------------------------
+              |                      |
+          TimeClock              TimeRegistry
+   (delta-time, scale,        (सभी सक्रिय timers,
+    pause, fixed-step)         generational handles के साथ)
+                                     |
+                                 TimeTimer
+                            (एक अकेला timer instance)
+```
+
+## हर फ़ाइल की विस्तृत जानकारी
+
+### `TimeTypes.h` (header-only)
+
+`Clock` (= `std::chrono::steady_clock`), `TimePoint`, `Duration` (double
+precision, सेकंड में) के type-aliases, और `enum class TimerType`
+(OneShot/Repeating)। `steady_clock` जानबूझकर चुना गया — `system_clock`
+की तुलना में यह कभी पीछे या आगे "जंप" नहीं करता (जैसे जब यूज़र सिस्टम
+की घड़ी बदल दे), जो इसे frame-timing के लिए सुरक्षित बनाता है।
+
+### `TimeHandle.h` (header-only)
+
+`TimerHandle` — यह **generational handle** है, `index` + `generation`
+दोनों रखता है। यह कॉन्सेप्ट पहले भी `ObjectHandle`/`ResourceHandle`
+में सुझाया गया था, यहाँ पहली बार पूरी तरह लागू (implement) हुआ।
+
+### `TimeTimer.h` / `.cpp`
+
+एक अकेले timer का व्यवहार — `Configure()`, और `Advance(deltaSeconds)`
+जो elapsed time बढ़ाता है और बताता है कि callback कितनी बार "due"
+(फायर होने के लिए तैयार) है।
+
+**यहाँ सबसे महत्वपूर्ण design-सिद्धांत है: `TimeTimer` खुद कभी अपना
+callback नहीं बुलाता।** यह सिर्फ़ बताता है — "callback अब due है,
+इतनी बार" — और असली firing की ज़िम्मेदारी `TimeRegistry` की है, जो इसे
+तब करता है जब यह पूरी तरह सुरक्षित हो (नीचे देखें)।
+
+### `TimeRegistry.h` / `.cpp`
+
+यह क्लास सभी active timers को एक **slot-map** में रखती है — `index`
+के through सीधे access, और `generation` counter हर slot ke साथ, ताकि
+पुराने (stale) handles को नए (recycled) slot से अलग पहचाना जा सके।
+
+**सबसे बड़ी design-चुनौती और उसका हल — Reentrancy/Deadlock Safety:**
+
+सोचिए एक timer का callback खुद एक नया timer बनाता है (जैसे: एक
+cooldown खत्म होने पर तुरंत एक follow-up effect शुरू करना — ये एक
+बिल्कुल सामान्य gameplay pattern है)। अगर `UpdateAll()` अपने
+`std::mutex` को lock किए हुए callback को सीधे बुला दे, और वो callback
+अंदर से दोबारा `CreateTimer()` बुलाए (जो फिर से वही mutex lock करने
+की कोशिश करेगा) — तो चूँकि `std::mutex` **recursive नहीं होता**, यह
+**तुरंत deadlock** हो जाएगा — पूरा Engine वहीं रुक जाएगा।
+
+इसे रोकने के लिए `UpdateAll()` को इस तरह डिज़ाइन किया गया:
+
+```cpp
+void TimeRegistry::UpdateAll(double deltaSeconds)
+{
+    std::vector<std::function<void()>> dueCallbacks;
+
+    {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        // ... सभी timers advance करो, due callbacks को dueCallbacks
+        //     list में collect karo, lekin abhi bulao mat ...
+    } // <- lock yahan release ho jaata hai
+
+    for (auto& callback : dueCallbacks)
+    {
+        callback(); // ab safe hai - mutex free hai
+    }
+}
+```
+
+Matlab: **lock ke andar sirf data-collect hota hai, callbacks lock
+release hone ke BAAD fire hote hain।** इससे chahe callback kuch bhi
+kare (naya timer banaye, purana destroy kare), koi deadlock nahi
+hoga, aur registry ki state bhi corrupt nahi hogi (kyunki saari
+mutations lock ke andar hi complete ho chuki hoti hain, firing shuru
+hone se pehle)।
+
+इसी class में एक और bug भी सामने आया aur turant fix hua (देखें
+*Resolved Issues*) — **repeating timer ka multi-fire bug**।
+
+### `TimeClock.h` / `.cpp`
+
+यह इंजन की असली "घड़ी" है:
+
+- **`Tick()`** — हर frame एक बार बुलाई जाती है, real wall-clock time
+  से delta-time निकालती है
+- **Delta-Time Clamping** — `m_maxDeltaTime` (default 0.25 सेकंड) से
+  ज़्यादा कोई delta कभी नहीं जाने दिया जाता — "spiral of death" से
+  बचाव (नीचे विस्तार से)
+- **Time Scale** — `m_timeScale` से multiply करके scaled delta-time
+  निकाला जाता है (slow-motion/fast-forward के लिए)
+- **Pause** — pause होने पर scaled delta सीधे 0 हो जाता है (real समय
+  फिर भी चलता रहता है, बस Engine को उसका पता नहीं चलता)
+- **Fixed-Timestep Accumulator** — `m_fixedAccumulator` हर frame के
+  scaled delta को जमा करता रहता है; `ConsumeFixedStep()` जब भी बुलाया
+  जाए, अगर पर्याप्त समय जमा हो चुका है तो `true` लौटाता है और उतना
+  समय घटा देता है — इसे loop में बुलाने से एक सामान्य **fixed-timestep
+  game loop pattern** बनता है
+
+**"Spiral of Death" क्या है और यह क्यों खतरनाक है:** मान लीजिए किसी
+frame में debugger का breakpoint लग गया, या डिस्क धीमी हो गई, और वह
+frame असल में 3 सेकंड ले लेता है। बिना clamping के, अगला `Tick()`
+delta-time = 3.0 सेकंड रिपोर्ट करेगा। अगर Physics इस पूरे 3 सेकंड को
+एक ही step में simulate करने की कोशिश करे, तो वस्तुएँ दीवारों के आर-पार
+चली जाएँगी, collision detection टूट जाएगा — और अगले frame को भी उतना
+ही समय लगेगा (क्योंकि उतनी भारी calculation करनी पड़ी), जिससे delta
+और भी बड़ा हो जाएगा — यह एक **"spiral of death"** (मौत का चक्कर) बन
+जाता है, जहाँ से इंजन कभी वापस उबर नहीं पाता। clamping (`m_maxDeltaTime`)
+इसे रोकता है — इंजन बस "धीमा" महसूस होगा उस पल, क्रैश नहीं होगा।
+
+### `TimeManager.h` / `.cpp`
+
+पूरे मॉड्यूल का singleton — `TimeClock` और `TimeRegistry` दोनों को
+owns करता है, और उनके बीच का पुल है: `Tick()` कॉल होने पर पहले clock
+advance होता है, फिर registry के सभी timers उसी delta-time से advance
+होते हैं।
+
+## उपयोग का उदाहरण
+
+```cpp
+#include "Core/Time/TimeManager.h"
+
+XR3D::Core::Time::TimeManager::Get().Initialize();
+
+// हर frame:
+TimeManager::Get().Tick();
+double dt = TimeManager::Get().GetDeltaTime();
+
+// Fixed-timestep Physics के लिए:
+while (TimeManager::Get().ConsumeFixedStep())
+{
+    // PhysicsStep(TimeManager::Get().GetFixedDeltaTime());
+}
+
+// एक cooldown timer:
+TimerHandle cooldown = TimeManager::Get().CreateTimer(2.0, TimerType::OneShot, []() {
+    // ability ready हो गई
+});
+
+TimeManager::Get().Shutdown();
+```
+
+## यूनिट टेस्टिंग — 10/10 पास
+
+`Tests\Unit\Core\TimeTests.cpp` में यह 10 टेस्ट हैं:
+
+1. `Time_Manager_InitializeAndShutdown`
+2. `Time_Clock_DeltaTimeIsPositiveAfterTick`
+3. `Time_Clock_PauseSetsZeroDelta`
+4. `Time_Clock_TimeScaleAffectsDelta`
+5. `Time_Clock_MaxDeltaTimeClamps`
+6. `Time_Timer_OneShot_FiresOnceAndCleansUp`
+7. `Time_Timer_Repeating_FiresMultipleTimesForLargeDelta`
+8. `Time_Timer_StaleHandle_DetectedAfterReuse`
+9. `Time_FixedTimestep_ConsumeFixedStepWorks`
+10. **`Time_Timer_ReentrantCallback_DoesNotDeadlock`** — यह सबसे
+    महत्वपूर्ण टेस्ट है: एक timer का callback खुद एक नया timer बनाता
+    है; अगर कहीं भी deadlock-bug होता, तो यह टेस्ट कभी खत्म ही नहीं
+    होता (पूरा test-binary हैंग हो जाता) — इस टेस्ट का सफलतापूर्वक
+    पूरा होना ही इस बात का प्रमाण है कि कोई deadlock नहीं है
+
+**एक ध्यान देने योग्य बात:** चूँकि `TimeManager` एक process-भर का
+singleton है, दो टेस्ट (`Time_Clock_MaxDeltaTimeClamps` और
+`Time_FixedTimestep_ConsumeFixedStepWorks`) जानबूझकर अपनी ज़रूरत की
+settings ख़ुद रीसेट/सेट करते हैं — क्योंकि एक टेस्ट में बदली गई सेटिंग
+(जैसे `SetMaxDeltaTime`) अगर रीसेट न हो, तो वह अगले टेस्ट में "लीक"
+(leak) हो सकती है, जो टेस्ट को गलत तरीके से fail करा सकती है। यह
+**Time मॉड्यूल का दोष नहीं है** — यह टेस्ट-आइसोलेशन (isolation) की
+सामान्य ज़िम्मेदारी है जब singleton state साझा (shared) होती है।
+
+## इंटीग्रेशन टेस्टिंग — 3/3 पास
+
+`Integration\Scenarios\Core\TimeIntegrationTests.cpp`:
+
+1. **`Integration_Time_SimulatedGameLoop_FixedStepDrivesPhysics`** —
+   10 नकली (~60 FPS) frames एक fixed-timestep accumulator को drive
+   करते हैं, बिल्कुल वैसे ही जैसे असली Physics update loop भविष्य में
+   करेगा
+2. **`Integration_Time_AbilityCooldownSystem`** — तीन अलग-अलग
+   duration के one-shot timers, छोटे-छोटे बार-बार होने वाले ticks से
+   advance किए जाते हैं (जैसा असली cooldown UI हर frame करता है)
+3. **`Integration_Time_PauseMenuScenario`** — एक repeating timer यह
+   पुष्टि करता है कि `Pause()` सक्रिय रहते हुए वह **आगे नहीं बढ़ता**,
+   और `Resume()` के बाद सही तरीके से दोबारा fire होना शुरू होता है
+
+उपयोगकर्ता (user) ने स्वयं तीनों targets को एक साथ चलाकर पुष्टि की —
+कुल 33 यूनिट टेस्ट (10 Time + 8 Config + 6 Logging + 9 Memory) और 13
+इंटीग्रेशन सिनेरियो (3 Time + 3 Config + 3 Logging + 4 Memory), सभी
+सफल।
+
+## Engine Integration
+
+`Main.cpp` को चौथी बार अपडेट किया गया — अब यह Time को भी शुरुआत (boot)
+प्रक्रिया में शामिल करता है, aur ek demonstration frame-tick bhi
+karta hai:
+
+```cpp
+Memory::MemoryManager::Get().Initialize();
+Logging::Logger::Get().Initialize();
+Config::ConfigManager::Get().Initialize();
+Time::TimeManager::Get().Initialize();
+
+// ... boot logic ...
+
+Time::TimeManager::Get().Tick();
+XR3D_LOG_INFO(Logging::LogCategory::Core, "First frame delta time: {} s", Time::TimeManager::Get().GetDeltaTime());
+
+// Shutdown order: reverse - Time, Config, Logging, Memory.
+Time::TimeManager::Get().Shutdown();
+Config::ConfigManager::Get().Shutdown();
+Logging::Logger::Get().Shutdown();
+Memory::MemoryManager::Get().Shutdown();
+```
+
+असली Engine चलाने पर परिणाम:
+```
+[INFO] [Core] XR3D Engine starting...
+[WARNING] [Core] engine.cfg not found - continuing with default settings.
+[INFO] [Core] Resolved window size: 1280x720
+[INFO] [Core] XR3D Engine running.
+[INFO] [Core] First frame delta time: 0.010907 s
+[INFO] [Core] XR3D Engine shutting down...
+```
+
+अब चारों Core प्रणालियाँ (Memory, Logging, Config, Time) एक साथ, सही
+क्रम में, बिना किसी क्रैश के काम कर रही हैं।
+
+## सामने आई समस्याएँ और उनका समाधान
+
+इस मॉड्यूल में **दो चीज़ें** सामने आईं — दोनों development के दौरान ही
+पकड़ी और ठीक की गईं, इसलिए final delivery पूरी तरह साफ़ थी:
+
+1. **Repeating Timer का Multi-Fire Bug** — शुरुआती implementation में,
+   अगर कोई बड़ा delta (जैसे `UpdateAll(0.35)` एक `0.1`-सेकंड वाले
+   repeating timer पर) एक साथ कई intervals को पार कर जाए, तो timer
+   सिर्फ़ **एक बार** fire होता था, तीन बार नहीं — matlab "beats" चुपचाप
+   गायब (drop) हो जाते थे। यह sandbox-testing के दौरान ही पकड़ा गया
+   (delivery से पहले), और `Advance()` को fire-**count** लौटाने वाला
+   बनाकर ठीक किया गया।
+
+2. **Test-Isolation Timing Flakiness** (मॉड्यूल का दोष नहीं) —
+   `Integration_Time_SimulatedGameLoop_FixedStepDrivesPhysics` टेस्ट
+   पहली बार `sleep_for()` की timing पर बहुत सख़्त (tight) upper-bound
+   (`<= 12`) लगाए हुए था। Windows का scheduler/timer-resolution
+   (ख़ासकर Debug build में, aur ek 200-line output wale Logging test
+   ke turant baad) `sleep_for()` ko expected se zyada der tak sula
+   sakta hai — jisse actual accumulated time zyada ho gaya aur physics
+   steps 12 se upar chale gaye. Ye bound ko dheela (loose) karke
+   (`>= 5 && <= 20`) theek kiya gaya — asli code me kuch nahi badla,
+   sirf test ki tolerance realistic OS-timing-jitter ke against sahi
+   ki gayi.
+
+## भविष्य के लिए बचे हुए काम (TODO)
+
+- `maxDeltaTime`/`fixedDeltaTime` को `Core/Config` के through
+  configurable बनाना, एक बार वह integration point तैयार हो जाए
+- `TimeUnit` enum (Seconds/Milliseconds/Frames) जोड़ना, अगर कभी
+  formatting/conversion utility की ज़रूरत पड़े
+- `TimeRegistry` की linear `UpdateAll()` scan को priority-queue/sorted
+  structure में बदलना, अगर कभी concurrent timers की संख्या इतनी बढ़
+  जाए कि यह एक मापी गई (measured) bottleneck बन जाए
+
+## Git
+
+```
+git commit -m "feat(core): implement Time subsystem (clock, time-scale, pause, fixed-timestep, safe timers)"
+git tag -a v0.5.0-time -m "Core Time module complete: 10 unit tests, 3 integration tests, wired into Engine"
+```
+
+## इस टैग से मिली सीख
+
+- किसी भी ऐसे सिस्टम को डिज़ाइन करते वक़्त जिसमें **callback-आधारित
+  event firing** हो aur जो एक साझा (shared) संसाधन (जैसे registry) पर
+  lock ले रहा हो, हमेशा यह सोचना चाहिए: *"अगर यह callback खुद इसी
+  सिस्टम को दोबारा बुलाए, तो क्या होगा?"* — reentrancy को शुरू से ही
+  design में शामिल करना, बाद में deadlock ढूँढने से कहीं आसान है।
+- Timer/scheduling जैसे systems में "एक बार में सिर्फ़ एक बार फायर
+  होगा" जैसी सोच खतरनाक हो सकती है — असली दुनिया में frame-rate
+  अनियमित (irregular) होती है, इसलिए हर API को **variable, कभी-कभी
+  बड़े delta-time** के लिए सही तरीके से डिज़ाइन करना चाहिए, सिर्फ़
+  "सामान्य" 16ms frame के लिए नहीं।
+- Timing-आधारित टेस्ट (जो `sleep_for()` जैसे real-wall-clock पर
+  निर्भर हों) कभी बहुत सख़्त bounds नहीं रखने चाहिए — OS scheduler
+  jitter हमेशा मौजूद रहता है, ख़ासकर Debug builds में।
 
 ---
 
-*यह दस्तावेज़ अंतिम बार अपडेट किया गया: टैग `v0.4.0-config` के बाद।*
-*अगला अपडेट: टैग `v0.5.0-time` पूरा होने पर।*
+<br>
+
+# आगे क्या (अगला टैग)
+
+अगला मॉड्यूल **`Core\FileSystem`** होगा (Core की 15 प्रणालियों में
+पाँचवाँ), जो फ़ाइल पढ़ने/लिखने, path-manipulation, aur file-watching
+की ज़िम्मेदारी संभालेगा — यह अब तक जो भी `std::ifstream`/`std::ofstream`
+directly इस्तेमाल हो रहा था (Logging का FileSink, Config का
+ConfigLoader), उसे भविष्य में इसी प्रणाली के through migrate किया
+जाएगा। जैसे ही वह पूरा होगा, इस दस्तावेज़ में **टैग 6 —
+`v0.6.0-filesystem`** का पूरा विवरण जोड़ दिया जाएगा।
+
+---
+
+*यह दस्तावेज़ अंतिम बार अपडेट किया गया: टैग `v0.5.0-time` के बाद।*
+*अगला अपडेट: टैग `v0.6.0-filesystem` पूरा होने पर।*
