@@ -7,6 +7,69 @@
 
 ---
 
+
+# परिशिष्ट — श्रद्धा और राष्ट्र के प्रति समर्पण
+
+इस भाग में नीचे दिए गए श्लोक और राष्ट्रीय प्रतीक बिना किसी परिवर्तन के,
+उनकी मूल भाषा में ज्यों-के-त्यों जोड़े गए हैं।
+
+## १. श्री हनुमान चालीसा — प्रथम दोहा
+
+```
+श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि।
+बरनउँ रघुबर बिमल जसु जो दायकु फल चारि॥
+
+बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।
+बल बुद्धि विद्या देहु मोहिं, हरहु कलेश विकार॥
+```
+
+## २. बजरंग बाण — सबसे प्रसिद्ध श्लोक
+
+```
+निश्चय प्रेम प्रतीति ते, विनय करैं सनमान।
+तेहि के कारज सकल शुभ, सिद्ध करैं हनुमान॥
+```
+
+## ३. श्रीमद्भगवद्गीता — अध्याय ४, श्लोक ७
+
+```
+यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।
+अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥
+```
+
+## ४. भारत का राष्ट्रगान — जन गण मन
+
+```
+जन गण मन अधिनायक जय हे भारत भाग्य विधाता।
+पंजाब सिन्ध गुजरात मराठा द्राविड़ उत्कल बंग।
+विंध्य हिमाचल यमुना गंगा उच्छल जलधि तरंग।
+तव शुभ नामे जागे, तव शुभ आशिष मागे,
+गाहे तव जय गाथा।
+जन गण मंगलदायक जय हे भारत भाग्य विधाता।
+जय हे, जय हे, जय हे, जय जय जय जय हे॥
+```
+
+## ५. भारत का राष्ट्रीय गीत — वन्दे मातरम्
+
+```
+वन्दे मातरम्।
+सुजलां सुफलां मलयजशीतलाम्
+शस्यश्यामलां मातरम्।
+वन्दे मातरम्।
+
+शुभ्रज्योत्स्नां पुलकितयामिनीम्
+फुल्लकुसुमित द्रुमदलशोभिनीम्,
+सुहासिनीं सुमधुर भाषिणीम्
+सुखदां वरदां मातरम्॥
+वन्दे मातरम्।
+```
+
+---
+
+*जय श्री राम। जय हिन्द। वन्दे मातरम्।*
+
+
+
 ## इस दस्तावेज़ का उद्देश्य
 
 यह दस्तावेज़ XR3D Engine परियोजना के **हर Git टैग** का पूरा, विस्तृत और
@@ -1712,17 +1775,141 @@ git tag -a v0.5.0-time -m "Core Time module complete: 10 unit tests, 3 integrati
 
 <br>
 
-# आगे क्या (अगला टैग)
+<br>
 
-अगला मॉड्यूल **`Core\FileSystem`** होगा (Core की 15 प्रणालियों में
-पाँचवाँ), जो फ़ाइल पढ़ने/लिखने, path-manipulation, aur file-watching
-की ज़िम्मेदारी संभालेगा — यह अब तक जो भी `std::ifstream`/`std::ofstream`
-directly इस्तेमाल हो रहा था (Logging का FileSink, Config का
-ConfigLoader), उसे भविष्य में इसी प्रणाली के through migrate किया
-जाएगा। जैसे ही वह पूरा होगा, इस दस्तावेज़ में **टैग 6 —
-`v0.6.0-filesystem`** का पूरा विवरण जोड़ दिया जाएगा।
+# टैग 6 — `v0.6.0-filesystem` (Core / FileSystem मॉड्यूल)
+
+## सारांश तालिका
+
+| क्षेत्र | विवरण |
+|---|---|
+| टैग नाम | `v0.6.0-filesystem` |
+| संदेश | "Core FileSystem module complete: 13 unit tests, 3 integration tests, wired into Engine" |
+| मॉड्यूल समूह | Core |
+| संस्करण चरण | V1 |
+| Core में क्रम | 15 में से पाँचवीं प्रणाली |
+| यूनिट टेस्ट | 13/13 पास |
+| इंटीग्रेशन टेस्ट | 3/3 पास |
+
+## यह मॉड्यूल क्यों पाँचवें नंबर पर बनाया गया
+
+FileSystem सीधे दो पुराने TODO को पूरा करता है — Logging के `FileSink`
+और Config के `ConfigLoader`, दोनों में यह comment छोड़ा गया था: *"route
+through Core/FileSystem once that system exists"*। इसके अलावा, आगे
+बनने वाली लगभग हर प्रणाली (Asset Pipeline, Serialization, Save/Load,
+Scripting) को फ़ाइल-पहुँच चाहिए होगी।
+
+## सबसे महत्वपूर्ण डिज़ाइन-सिद्धांत — कहीं भी कोई Exception नहीं
+
+इस मॉड्यूल का कोई भी function `throw` नहीं करता। हर read-वाला operation
+`FileResult<T>` (success/error/value) लौटाता है, हर write-वाला operation
+सीधे `FileError` enum लौटाता है। यह Memory (null-safety) और Config
+(`GetOrDefault` कभी क्रैश नहीं करता) से मिली सीख का सीधा विस्तार है —
+फ़ाइल-सिस्टम में "फ़ाइल न मिलना" या "पहली बार चलाने पर folder न होना"
+बिल्कुल सामान्य स्थितियाँ हैं, कोई असाधारण (exceptional) घटना नहीं।
+
+## आर्किटेक्चर
+
+```
+                    FileSystemManager  (singleton — एकमात्र बाहरी संपर्क बिंदु)
+                          |
+              ------------------------------------
+              |               |                   |
+     FileSystemRegistry  FileSystemWatcher   FileSystemPath
+    (alias:// mounts)    (polling-आधारित      (सिर्फ़ string
+                          file-watch)          manipulation)
+                          |
+                  std::filesystem (C++17 standard library)
+```
+
+## हर फ़ाइल की संक्षिप्त जानकारी
+
+**`FileSystemTypes.h`** — `FileError` enum, generic `FileResult<T>`
+wrapper, `FileInfo`, aur generational `WatchHandle` (Time module के
+`TimerHandle` जैसा ही pattern)।
+
+**`FileSystemPath.h/.cpp`** — शुद्ध string-manipulation, कोई disk-access
+नहीं। `std::filesystem::path` पर based — Windows का `\` aur Linux/macOS
+का `/`, दोनों सही तरीके से handle होते हैं, बिना Platform module का
+इंतज़ार किए (क्योंकि `std::filesystem` पहले से ही cross-platform है)।
+
+**`FileSystemRegistry.h/.cpp`** — Virtual mount points।
+`"assets://textures/wall.png"` जैसा clean path असली disk-location में
+बदला जाता है। **अनजान (unknown) alias को भी crash नहीं किया जाता** —
+बस उसे जस-का-तस लौटा दिया जाता है, ताकि आगे `Exists()`/`ReadAllText()`
+अपने आप `NotFound` रिपोर्ट कर दें।
+
+**`FileSystemWatcher.h/.cpp`** — Polling-आधारित file-change detection।
+यहाँ **Time module जैसी ही reentrancy-सुरक्षा** लागू की गई —
+`PollAll()` लॉक के अंदर सिर्फ़ due callbacks इकट्ठा करता है, और उन्हें
+lock release होने के **बाद** फायर करता है — ताकि कोई watcher-callback
+अगर खुद एक नया watch बनाए, तो deadlock न हो।
+
+**`FileSystemManager.h/.cpp`** — पूरे मॉड्यूल का single entry point —
+Text/Binary read-write, Exists/IsDirectory, CreateDirectory/DeleteFile/
+ListDirectory, Mounts, aur Watches — सब यहीं से।
+
+## टेस्टिंग
+
+- **यूनिट टेस्ट: 13/13 पास** — round-trip text/binary I/O, missing-file
+  graceful NotFound, nested directory creation, mount resolution,
+  unknown-alias pass-through, watcher detection, aur watcher
+  reentrancy-safety
+- **इंटीग्रेशन टेस्ट: 3/3 पास** — boot-time asset mount+load, config
+  hot-reload via watcher, aur first-run save-directory persistence
+  (दो "sessions" simulate करके)
+
+## Engine Integration
+
+`Main.cpp` अब पाँचों Core प्रणालियों (Memory, Logging, Config, Time,
+FileSystem) को सही क्रम में शुरू/बंद करता है, और एक `Assets` folder
+check करके उसे `assets://` के रूप में mount करने का demonstration भी
+करता है (अगर folder न मिले, तो सिर्फ़ warning, crash नहीं)।
+
+## भविष्य के लिए बचे काम
+
+- Polling-आधारित watcher को OS-native events (Windows
+  `ReadDirectoryChangesW`) से बदलना, जब `Platform/Windows` बन जाए
+- Logging का `FileSink` aur Config का `ConfigLoader`, दोनों को असल में
+  इसी FileSystem के through migrate करना
+- Threading/JobSystem बनने के बाद async I/O जोड़ने पर विचार करना
+
+## Git
+
+```
+git commit -m "feat(core): implement FileSystem subsystem (exception-free result-type I/O, virtual mounts, polling watcher)"
+git tag -a v0.6.0-filesystem -m "Core FileSystem module complete: 13 unit tests, 3 integration tests, wired into Engine"
+```
+
+## इस टैग से मिली सीख
+
+- एक फ़ाइल-सिस्टम जैसी प्रणाली में, "फ़ाइल न मिलना" सबसे सामान्य
+  (common) परिणाम है, अपवाद (exception) नहीं — इसलिए हर API को शुरू से
+  ही result-type पर आधारित बनाना चाहिए, बाद में retrofit करने की जगह।
+- एक ही reentrancy-safety pattern (lock के अंदर collect, lock के बाहर
+  fire) को अलग-अलग मॉड्यूलों (Time के Timers, FileSystem के Watchers)
+  में दोहराना यह दिखाता है कि यह कोई एक-बारगी समाधान नहीं, बल्कि एक
+  **सामान्य (general) सिद्धांत** है जो किसी भी callback-आधारित,
+  shared-state वाले सिस्टम पर लागू होता है।
 
 ---
 
-*यह दस्तावेज़ अंतिम बार अपडेट किया गया: टैग `v0.5.0-time` के बाद।*
-*अगला अपडेट: टैग `v0.6.0-filesystem` पूरा होने पर।*
+<br>
+
+# आगे क्या (अगला टैग)
+
+अगला मॉड्यूल **`Core\Threading`** होगा (Core की 15 प्रणालियों में
+छठा), जो worker thread pool की ज़िम्मेदारी संभालेगा — यह आगे बनने वाले
+`Core\JobSystem` की नींव होगी।
+
+---
+
+*यह दस्तावेज़ अंतिम बार अपडेट किया गया: टैग `v0.6.0-filesystem` के बाद।*
+*अगला अपडेट: टैग `v0.7.0-threading` पूरा होने पर।*
+
+<br>
+
+---
+
+<br>
+
